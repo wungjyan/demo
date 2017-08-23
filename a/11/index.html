@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>苹果菜单</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		#div1{
+			width:100%;
+			height: auto;
+			position: absolute;
+			bottom:0px;
+			text-align: center; 
+		}
+		#div1 img{
+			width:64px;
+			height:64px;
+		}
+	</style>
+</head>
+<body>
+	<input type="text">
+	<input type="text">
+	<input type="text">
+	<input type="text">
+	<input type="text">
+	<div id="div1">
+		<img src="./img/1.png">
+		<img src="./img/2.png">
+		<img src="./img/3.png">
+		<img src="./img/4.png">
+		<img src="./img/5.png">
+	</div>
+
+
+	<script type="text/javascript">
+		var aImg=document.getElementsByTagName('img');
+		var aInput=document.getElementsByTagName('input');
+		var oDiv=document.getElementById('div1');
+
+
+		document.onmousemove=function(ev){
+
+		for(var i=0;i<aImg.length;i++){
+			var x=aImg[i].offsetLeft+aImg[i].offsetWidth/2;
+			var y=aImg[i].offsetTop+aImg[i].offsetHeight/2+oDiv.offsetTop;
+
+			var a=ev.clientX-x;
+			var b=ev.clientY-y;
+			var c=Math.sqrt(Math.pow(a,2)+Math.pow(b,2));
+			var scale=1-c/300;
+			if(scale<0.5){
+				scale=0.5;
+			}
+			aInput[i].value=scale;
+
+			aImg[i].style.width=scale*128+'px';
+			aImg[i].style.height=scale*128+'px';
+
+		}
+			
+
+
+
+
+
+
+		}
+		
+	</script>
+</body>
+</html>

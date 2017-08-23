@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>练习册--原生JS</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div id="wrap">
+        <ol id="list">
+            <!--<li>-->
+                <!--<h2>第一章 表单常用代码</h2>-->
+                <!--<dl class="w-dl">-->
+                    <!--<dd><a href="a/1/index.html" target="_blank">1111</a></dd>-->
+                <!--</dl></li>-->
+        </ol>
+    </div>
+
+    <script>
+        var str='';
+        var data=[
+            [
+                { title : '第一章 内容展示类'},
+                { url : 'a/1/index.html', title : '模拟信息发送'},
+                { url : 'a/3/index.html', title : '输出彩色文字效果' },
+                { url : 'a/4/index.html', title : '模拟滚动条改变内容' },
+                { url : 'a/5/index.html', title : '拖拽改变宽度' },
+                { url : 'a/6/index.html', title : '选项卡'},
+                { url : 'a/11/index.html', title : '苹果菜单'}
+            ],
+            [
+                { title : '第二章 图片相关'},
+                { url : 'a/2/index.html', title : '循环和顺序切换' },
+                { url : 'a/12/index.html', title : '京东图片放大效果' },
+                { url : 'a/13/index.html', title : '照片墙'}
+            ],
+            [
+                { title : '第三章 表单相关'},
+                { url : 'a/7/index.html', title : '复选框' },
+                { url : 'a/8/index.html', title : '查找重复字符' },
+                { url : 'a/9/index.html', title : '去除字符串空格'},
+                { url : 'a/10/index.html', title : '过滤关键字'}
+            ]
+
+
+
+        ];
+
+        for(var i=0;i<data.length;i++){
+            var items=data[i];
+            var sub='';
+            for(var j=0;j<items.length;j++){
+                var son=items[j];
+                if(j==0){
+                    sub+='<li><h2>' + son.title  + '</h2><dl class="w-dl">';
+                }else{
+                    sub+='<dd><a href="'  +son.url+   '" target="_blank">'+son.title+'</a></dd>';
+                }
+                if(j == items.length - 1){
+                    sub += '</dl></li>';
+                }
+            }
+
+           str+=sub;
+        }
+
+        var l=document.getElementById('list');
+        l.innerHTML=str;
+
+        var h2=document.getElementsByTagName('h2');
+        var dl=document.getElementsByTagName('dl');
+        var open=false;
+        var num=-1;
+        for(var i=0;i<h2.length;i++){
+            h2[i].index=i;
+            h2[i].onclick=function(){
+                for(var i=0;i<h2.length;i++){
+                   dl[i].style.display='none';
+                }
+                if(num==this.index && open){
+                    dl[this.index].style.display='none';
+                    open=false;
+                }else{
+                    dl[this.index].style.display='block';
+                    open=true;
+                }
+                num=this.index;
+            }
+
+        }
+    </script>
+</body>
+</html>

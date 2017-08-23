@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>去除字符串空格</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row" style="margin:50px auto">
+            <div class="col-lg-6 col-lg-offset-4">
+                <form role="form" class="form-inline">
+                    <div>
+                        <input type="text" class="form-control" value="" placeholder="请输入">
+                        <input type="button" class="btn btn-primary" value="过滤首尾">
+                        <input type="button" class="btn btn-primary" value="过滤所有">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    var aInput=document.getElementsByTagName('input');
+    aInput[1].onclick=function(){
+        aInput[0].value=aInput[0].value.replace(/^\s+|\s+$/g,'');
+    }
+    aInput[2].onclick=function(){
+        aInput[0].value=aInput[0].value.replace(/\s+/g,'');
+    }
+</script>
+</html>

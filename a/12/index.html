@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>京东图片放大效果</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		#div1{
+			width:450px;
+			height:450px;
+			overflow: hidden;
+			position: relative;
+			border:1px solid #D3D3D3;
+		}
+		#div1 span{
+			width:200px;
+			height: 200px;
+			background-color: yellow;
+			opacity:0.5;
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		#div2{
+			width:550px;
+			height: 550px;
+			overflow: hidden;
+			position: absolute;
+			left:500px;
+			top:0px;
+			border:1px solid #D3D3D3;
+		}
+		#div2 img{
+			position: absolute;
+			left: 0;
+			top:0;
+		}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		<img src="1.jpg">
+		<span></span>
+	</div>
+	<div id="div2">
+		<img src="2.jpg">
+	</div>
+
+	<script type="text/javascript">
+		var oDiv=document.getElementById('div1');
+		var oSpan=document.getElementsByTagName('span')[0];
+		var oDiv2=document.getElementById('div2');
+		var img2=oDiv2.getElementsByTagName('img')[0];
+
+		oDiv.onmouseover=function(){
+			oSpan.style.display='block';
+		}
+		oDiv.onmouseout=function(){
+			oSpan.style.display='none';
+		}
+		oDiv.onmousemove=function(ev){
+			oSpan.style.display='block';
+
+			var L=ev.clientX-oDiv.offsetLeft-oSpan.offsetWidth/2;
+			var T=ev.clientY-oDiv.offsetTop-oSpan.offsetHeight/2;
+			//限制在父元素内部移动
+			if(L<0){
+				L=0;
+			}else if (L>oDiv.offsetWidth-oSpan.offsetWidth){
+				L=oDiv.offsetWidth-oSpan.offsetWidth;
+			}
+			if(T<0){
+				T=0;
+			}else if(T>oDiv.offsetHeight-oSpan.offsetHeight){
+				T=oDiv.offsetHeight-oSpan.offsetHeight;
+			}
+			oSpan.style.left=L+'px';
+			oSpan.style.top=T+'px';
+
+			var scaleX=L/(oDiv.offsetWidth-oSpan.offsetWidth); //当前L与最大可行L的比值
+			var scaleY=T/(oDiv.offsetHeight-oSpan.offsetHeight);  //当前T与最大可行T的比值
+
+			img2.style.left=-(img2.offsetWidth-oDiv2.offsetWidth)*scaleX+'px';
+			img2.style.top=-(img2.offsetHeight-oDiv2.offsetHeight)*scaleY+'px';
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>照片墙</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		#ul1{
+			width:660px;
+			margin:10px auto;
+		}
+		#ul1 li{
+			list-style: none;
+			width: 200px;
+			height: 180px;
+			float: right;
+			margin:10px;
+		}
+		#ul1 li img{
+			width: 200px;
+			height: 180px;
+		}
+		#input1{
+			width: 50px;
+			height: 30px;
+			background-color: yellow;
+
+		}
+		span{
+			font-size: 12px;
+			color: #696969;
+		}
+	</style>
+
+
+</head>
+<body>
+	<input type="button" value="随机" id="input1">
+	<span>可拖拽换位置</span>
+	<ul id="ul1">
+		<li><img src="./img/1.jpg"></li>
+		<li><img src="./img/2.jpg"></li>
+		<li><img src="./img/3.jpg"></li>
+		<li><img src="./img/4.jpg"></li>
+		<li><img src="./img/5.jpg"></li>
+		<li><img src="./img/6.jpg"></li>
+		<li><img src="./img/7.jpg"></li>
+		<li><img src="./img/8.jpg"></li>
+		<li><img src="./img/9.jpg"></li>
+	</ul>
+
+	<script type="text/javascript" src="./move.js"></script>
+	<script type="text/javascript">
+		var aLi=document.getElementsByTagName('li');
+		var arr=[];
+		var ozIndex=2;
+		var oInput = document.getElementById('input1');
+
+		//循环li，保存每个li的定位值
+		for(var i=0;i<aLi.length;i++){
+			arr.push( [aLi[i].offsetLeft,aLi[i].offsetTop] );
+		}
+
+		//循环li，根据保存的值绝对定位每个li
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].style.position="absolute";
+			aLi[i].style.left=arr[i][0]+'px';
+			aLi[i].style.top=arr[i][1]+'px';
+			aLi[i].style.margin=0;
+		}
+
+		//对每个li实现拖拽
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].index = i;
+			drag(aLi[i]);
+		}
+
+		oInput.onclick = function(){
+		
+		var randomArr = [0,1,2,3,4,5,6,7,8];
+		
+		randomArr.sort(function(n1,n2){
+			return Math.random() - 0.5;
+		});
+		
+		for(var i=0;i<aLi.length;i++){
+			startMove( aLi[i] , { left : arr[randomArr[i]][0] , top : arr[randomArr[i]][1] } );
+			
+			aLi[i].index = randomArr[i];
+			
+		}
+		
+	};
+
+		//拖拽方法的封装
+		function drag(obj){
+			var disX=0;
+			var disY=0;
+			obj.onmousedown=function(ev){
+				obj.style.zIndex=ozIndex++;
+				disX=ev.clientX-obj.offsetLeft;
+				disY=ev.clientY-obj.offsetTop;
+
+				document.onmousemove=function(ev){
+					obj.style.left=ev.clientX-disX+'px';
+					obj.style.top=ev.clientY-disY+'px';
+
+					for(var i=0;i<aLi.length;i++){
+						aLi[i].style.border='';
+					}
+					var nl=nearLi(obj);
+					if(nl){
+						nl.style.border="2px solid red";
+					}
+					
+				}
+
+				document.onmouseup=function(){
+					document.onmousemove=null;
+					document.onmouseup=null;
+
+					var nL = nearLi(obj);
+					var tmp = 0;
+				
+					if(nL){  //找到了离当前最近的li，并交换位置，并且交换索引
+						startMove( nL , { left : arr[obj.index][0] , top : arr[obj.index][1] } );
+						startMove( obj , { left : arr[nL.index][0] , top : arr[nL.index][1] } );
+						nL.style.border = '';
+						
+						tmp = obj.index;
+						obj.index = nL.index;
+						nL.index = tmp;
+					}
+					else{	//没找到，说明未碰撞，回到原位置
+						startMove( obj , { left : arr[obj.index][0] , top : arr[obj.index][1] } );
+					}
+					}
+
+				return false;
+			}
+		}
+
+
+		//寻找最近的li
+		function nearLi(obj){
+
+			var value=9999;
+			var index=-1;
+			for(var i=0;i<aLi.length;i++){
+				if( pz(obj,aLi[i]) && obj!=aLi[i]){
+					var c=jl(obj,aLi[i]);
+					if(c<value){
+						value=c;
+						index=i;
+					}
+				}
+			}
+
+			if(index!=-1){
+				return aLi[index];
+			}else{
+				return false;
+			}
+			
+		}
+
+		//计算两元素顶角距离
+		function jl(obj1,obj2){
+			var a=obj1.offsetLeft-obj2.offsetLeft;
+			var b=obj1.offsetTop-obj2.offsetTop;
+			return Math.sqrt(a*a+b*b);
+		}
+
+		//碰撞检测函数封装
+		function pz(obj1,obj2){
+			var L1=obj1.offsetLeft;
+			var R1=obj1.offsetLeft+obj1.offsetWidth;
+			var T1=obj1.offsetTop;
+			var B1=obj1.offsetTop+obj1.offsetHeight;
+
+			var L2=obj2.offsetLeft;
+			var R2=obj2.offsetLeft+obj2.offsetWidth;
+			var T2=obj2.offsetTop;
+			var B2=obj2.offsetTop+obj2.offsetHeight;
+
+			if(R1<L2 || R2<L1 || B1<T2 || B2<T1){
+				return false;
+			}else{
+				return true;
+			}
+
+
+
+
+		}
+	</script>
+</body>
+</html>

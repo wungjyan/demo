@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽改变大小</title>
+    <style>
+        p{color:red;}
+        #div1{
+            width:100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left:600px;
+            top: 200px;
+        }
+    </style>
+</head>
+<body>
+    <p>点击左右距边10px处拖拽，改变大小</p>
+    <div id="div1"></div>
+
+    <script>
+        var oDiv=document.getElementById('div1');
+
+        oDiv.onmousedown=function(ev)
+        {
+            var ev=ev||event;
+            var L=oDiv.offsetLeft;
+            var W=oDiv.offsetWidth;
+            var dis=ev.clientX;
+            var x='';
+            if(ev.clientX>L+W-10){
+                x='right';
+            }
+
+            if(ev.clientX<L+10){
+                x='left';
+            }
+
+            document.onmousemove=function(ev)
+            {
+
+                switch(x){
+                    case 'right':
+                        oDiv.style.width=W+(ev.clientX-dis)+'px';
+                        break;
+                    case 'left':
+                        oDiv.style.width=W-(ev.clientX-dis)+'px';
+                        oDiv.style.left=L+(ev.clientX-dis)+'px';
+                        break;
+                }
+            }
+
+            document.onmouseup=function()
+            {
+                document.onmousemove=document.onmouseup=null;
+            }
+
+            return false;
+        }
+
+    </script>
+</body>
+</html>

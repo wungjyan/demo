@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #show{width:450px;height:450px;border:1px solid #696969;padding:10px;}
+        #text{width:400px;height:30px;line-height:30px;font-size:20px;border:1px solid #696969;}
+        #btn{width:50px;height:30px;border:1px solid #696969;}
+        span{display:inline-block;width:50px;height: 50px;line-height: 50px;font-size: 20px;text-align: center}
+    </style>
+</head>
+<body>
+    <div id="show">
+
+    </div>
+    <input type="text" id="text" value="">
+    <input type="button" id="btn" value="发送">
+
+    <script>
+        var show=document.getElementById('show');
+        var t=document.getElementById('text');
+        var b=document.getElementById('btn');
+        var color_arr=['#6495ED','#00FA9A','#DAA520','#A52A2A','#F0E68C'];
+        var arr='';
+        b.onclick=function() {
+            var str = t.value;
+            var arr = str.split('');
+            for (var i = 0; i < arr.length; i++) {
+
+                arr[i] = '<span style="background-color:' + color_arr[i%color_arr.length] + '; ">' + arr[i] + '</span>';
+            }
+            show.innerHTML+=arr.join("");
+            t.value='';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>模拟信息发送</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+<div id="warn">
+<h3>模拟信息发送</h3>
+<ol>
+	<li>点击图像切换角色</li>
+	<li>新的消息出现在顶端</li>
+	<li>多出信息框的消息，出现在滚动条下</li>
+</ol>
+</div>
+<div id="box">
+	<div class="t-box">
+		<ul id="oul">
+			<!-- <li class="fl clearfix">
+				<img src="1.png">
+				<p>hello world</p>
+			</li>
+			<li class="fr clearfix">
+				<img src="2.png">
+				<p>hello world</p>
+			</li> -->
+			
+		</ul>
+	</div>	
+	<div class="b-box">
+			<img id='pic' src="1.png">
+			<div class="text">
+				<input id="inp" type="text" >
+				<button id="btn">发送</button>	
+			</div>
+	</div>
+</div>
+	<script type="text/javascript">
+		var oImg=document.getElementById('pic');
+		var oBtn=document.getElementById('btn');
+		var oInp=document.getElementById('inp');
+		var oUl=document.getElementById('oul');
+		var onoff=true;
+
+		oImg.onclick=function(){
+			if (onoff) {
+				oImg.src='2.png';
+			}else{
+				oImg.src='1.png'
+			}
+			onoff=!onoff;
+		}
+
+		oBtn.onclick=function(){
+			if(oInp.value==""){
+				alert('发送内容不能为空');
+			}else{
+				if (onoff) {
+					oUl.innerHTML='<li class="fl clearfix"><img src="1.png"><p>'+oInp.value+'</p></li>'+oUl.innerHTML;
+				}else{
+					oUl.innerHTML='<li class="fr clearfix"><img src="2.png"><p>'+oInp.value+'</p></li>'+oUl.innerHTML;
+				}
+			}
+			oInp.value="";	
+		}
+	</script>
+</body>
+</html>
+
+

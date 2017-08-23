@@ -1,0 +1,41 @@
+#tabs{
+    width:304px;
+    margin:30px auto;
+}
+ul{
+    width:304px;
+    height: 42px;
+    padding:0;
+    margin:0;
+}
+ul li{
+    list-style: none;
+    float: left;
+    width:100px;
+    height: 40px;
+    line-height: 40px;
+    background-color:#31b0d5;
+    color:#ffffff;
+    text-align: center;
+    border:1px solid #C0C0C0;
+    border-right:none;
+    cursor: pointer;
+}
+ul li:nth-child(3){
+    border-right: 1px solid #C0C0C0;
+}
+#tabs div{
+    font-size: 16px;
+    color:#808080;
+    padding-left:10px;
+    padding-top:20px;
+    padding-bottom: 20px;
+    border:1px solid #C0C0C0;
+    border-top:none;
+    display:none;
+}
+.active{
+    background-color:#ffffff;
+    color:#31b0d5;
+    border-bottom: none;
+}
