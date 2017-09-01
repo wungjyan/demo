@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>运动留言板</title>
+    <style>
+        #ul1{
+            width:600px;
+            height: 600px;
+            border:1px solid #000000;
+            float:right;
+            margin:0;
+            padding:10px;
+            overflow: scroll;
+        }
+        #ul1 li{
+            list-style: none;
+            border-bottom:1px dashed #000000;
+            word-break: break-all;
+            overflow: hidden;
+        }
+    </style>
+    <script src="../lib.js"></script>
+</head>
+<body>
+    <textarea rows="15" cols="60" id="text"></textarea>
+    <input type="button" value="留言" id="btn">
+
+    <ul id="ul1">
+
+    </ul>
+
+    <script>
+        var oText=document.getElementById('text');
+        var oBtn=document.getElementById('btn');
+        var oUl=document.getElementById('ul1');
+        oBtn.onclick=function(){
+            var oLi=document.createElement('li');
+            oLi.innerHTML=oText.value;
+
+            if(oText.value){
+                    if(oUl.children[0]){
+                    oUl.insertBefore(oLi,oUl.children[0]);
+                }else{
+                    oUl.appendChild(oLi)
+                }
+            }
+            
+
+            var iH=parseInt(getStyle(oLi,'height'));
+            oLi.style.height='0px'
+            oLi.style.opacity='0';
+            oLi.style.filter='alpha(opacity=0)';
+
+            startMove(oLi,{
+                height:iH,
+                opacity:100
+            });
+
+            oText.value='';
+        }
+
+    </script>
+</body>
+</html>
