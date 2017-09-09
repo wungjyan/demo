@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片预加载</title>
+</head>
+<body>
+	<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504935430508&di=0e59610e3ff4e099ede237ebae6e73fc&imgtype=jpg&src=http%3A%2F%2Fg.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa5c27d1ed21b0ef43503309fd4c451da80cb3e03.jpg"  style="width: 600px;height: 300px;">
+
+	<p style="background-color:green;color: white;width: 600px;text-align: center;"></p>
+	<p style="background-color: green;color: white;width: 600px;text-align: center;cursor: pointer;">下一张</p>
+
+	<script>
+		var oImg=document.getElementsByTagName('img')[0];
+		var oP=document.getElementsByTagName('p')[0];
+		var oP2=document.getElementsByTagName('p')[1];
+		var oImage=new Image();
+
+		var arr=[
+			'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504935345857&di=61e6b79122ef120680d49042ad6ac94b&imgtype=jpg&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Ffcfaaf51f3deb48f856b141ef91f3a292cf578eb.jpg',
+
+			'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504935362390&di=b2fddd23a75366b33ea4cff0f6b6b501&imgtype=jpg&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1b4c510fd9f9d72ad30cb6dcdd2a2834359bbb83.jpg',
+
+			'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504935374347&di=f8f95a501da2f22e9a3a05a3983c4044&imgtype=jpg&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa08b87d6277f9e2fcfb66ec81630e924b999f36b.jpg',
+
+			'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504935389060&di=ac7a71203c99fd1869c95f6ba1e67ac0&imgtype=jpg&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F241f95cad1c8a786a18336ce6e09c93d71cf5040.jpg',
+
+			'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504935402819&di=0204ea78c5c2a6b9e1b8cd050d9527a0&imgtype=jpg&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fcc11728b4710b9128942bd3ecafdfc039345226a.jpg',
+
+			'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504935345448&di=787a0efb241c07aaae0f5130a13b8fc9&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fforum%2Fpic%2Fitem%2F6159252dd42a283450a0ec8e5bb5c9ea15cebf35.jpg',
+
+			'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504939215404&di=5d9a24565d9196a1d5202d6d1dd528f7&imgtype=0&src=http%3A%2F%2Fs2.lvjs.com.cn%2Fuploads%2Fpc%2Fplace2%2F2015-11-20%2F824ff408-a72c-4e9c-a678-5a9881a3b363.jpg',
+
+			'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504939233859&di=457db00681f09844a481bf0a88d8fa87&imgtype=jpg&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fd788d43f8794a4c2674c7f1804f41bd5ad6e3991.jpg'
+		];
+
+		
+
+		var iCur=0;
+		function imgLoad(){
+			oImage.src=arr[iCur];
+			oImage.onload=function(){
+				iCur++;
+				if (iCur<arr.length) {
+					imgLoad();
+				}
+				oP.innerHTML='图片预加载进度：'+iCur+'/'+arr.length;
+			}
+		}
+
+		imgLoad();
+
+		var i=0;
+		oP2.onclick=function(){
+			if (i==arr.length) {
+				i=7;
+				alert('最后一张了');
+			}
+			oImg.src=arr[i];
+			i++;
+			oP2.innerHTML='下一张'+i+'/'+arr.length;
+		}
+	</script>
+</body>
+</html>
