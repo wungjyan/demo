@@ -38,7 +38,7 @@
 
 		var iCur=0;
 		function imgLoad(){
-			oImage.src=arr[iCur];
+			
 			oImage.onload=function(){
 				iCur++;
 				if (iCur<arr.length) {
@@ -46,6 +46,7 @@
 				}
 				oP.innerHTML='图片预加载进度：'+iCur+'/'+arr.length;
 			}
+			oImage.src=arr[iCur];
 		}
 
 		imgLoad();
