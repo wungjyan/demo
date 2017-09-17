@@ -1,3 +1,12 @@
+//当资源加载完成后，退出动画
+var shade=document.getElementById('shade');
+	document.onreadystatechange=function(){
+		if(document.readyState=='complete'){
+			shade.style.display='none';
+		}
+	}
+
+
 
 //获取元素
 var getElem = function (selector){
@@ -98,6 +107,7 @@ var playScreenAnimateDone = function (screenCls){
 }
 
 window.onload = function (){
+
 	for(var k in screenAnimateElements){
 		if (k === '.screen-1') {
 			continue;
@@ -220,3 +230,5 @@ for(var i=0;i<navItems.length;i++){
 setTimeout(function(){
 	playScreenAnimateDone('.screen-1');
 },200);
+
+
