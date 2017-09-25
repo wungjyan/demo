@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百度下拉菜单</title>
+	<style type="text/css">
+		#text{
+			width: 300px;
+			height: 30px;
+			border:1px solid #6495ED;
+			line-height: 30px;
+			font-size: 16px;
+		}
+
+		#ul1{
+			margin: 0;
+			padding:0;
+			border:1px solid #6495ED;
+			border-top: none;
+			width: 300px;
+			display: none;
+		}
+		#ul1 li{
+			list-style: none;
+			margin-top: 5px;
+		}
+
+		#ul1 li a{
+			font-size: 16px;
+			color: #696969;
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<input type="text" id="text" placeholder="请输入关键字">
+	<ul id="ul1">
+		
+	</ul>
+
+	<script>
+		function abc(data){
+			var oUl=document.getElementById('ul1');
+			var html='';
+			if (data.s.length) {
+				oUl.style.display='block';
+				for(var i=0;i<data.s.length;i++){
+					html+="<li><a target='_blank' href='https://www.baidu.com/s?wd="+data.s[i]+"'>"+data.s[i]+"</a></li>";
+				}
+				oUl.innerHTML=html;
+			}else{
+				oUl.style.display='none';
+			}
+		}
+
+
+		var oT=document.getElementById('text');
+		var oBtn=document.getElementById('btn');
+		var oUl=document.getElementById('ul1');
+
+		oT.onkeyup=function(){
+			if (oT.value!='') {
+				var aScript=document.createElement('script');
+				aScript.src='https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+oT.value+'&cb=abc';
+				document.body.appendChild(aScript);
+				
+				if(aScript){   //避免过多script标签
+					document.body.removeChild(aScript);
+				}
+
+			}else{
+				oUl.style.display='none';
+			}
+		}
+
+
+		
+	</script>
+</body>
+</html>
