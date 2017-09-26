@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IFE JavaScript Task 04</title>
+	<style type="text/css">
+		.left_in,.right_in,.left_out,.right_out{
+			background-color: #fff;
+			color: #696969;
+			border:1px solid #C0C0C0;
+			border-radius: 5px;
+		}
+		.left_out{
+			margin-left: 30px;
+		}
+		span{
+			padding:5px;
+			background-color: red;
+			margin-right: 30px;
+			line-height: 40px;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<input class='text' type="text">
+	<input class='left_in' type="button" value="左侧入">
+	<input class='right_in' type="button" value="右侧入">
+	<input class='left_out' type="button" value="左侧出">
+	<input class='right_out' type="button" value="右侧出">
+
+	<div class="div1"></div>
+
+	<script>
+
+
+		//获取元素方法
+		var getElem = function(selector) {
+			return document.querySelector(selector);
+		}
+
+
+		//获取队列
+		var oDiv = getElem('.div1');
+
+
+		//左侧入
+		getElem('.left_in').onclick=function(){
+
+			var textVal = getElem('.text').value;
+
+			if (textVal == '') {
+				alert('请输入内容');
+			}else{
+
+				if (isNaN(textVal)) {
+					alert('请输入数字');
+				}else{
+
+					var aSpan = document.createElement('span');
+					aSpan.innerHTML = textVal;
+					if(oDiv.innerHTML == ''){
+						oDiv.appendChild(aSpan);
+					}else{
+						oDiv.insertBefore(aSpan,oDiv.firstChild);
+					}
+
+				}
+
+			}
+
+		}
+		
+
+
+		//右侧入
+		getElem('.right_in').onclick=function(){
+
+			var textVal = getElem('.text').value;
+
+			if (textVal == '') {
+				alert('请输入内容');
+			}else{
+
+				if (isNaN(textVal)) {
+					alert('请输入数字');
+				}else{
+
+					var aSpan = document.createElement('span');
+					aSpan.innerHTML = textVal;
+					oDiv.appendChild(aSpan);
+					
+				}
+
+			}
+
+		}
+
+
+
+		//左侧出
+		getElem('.left_out').onclick=function(){
+			if (oDiv.innerHTML == '') {
+				alert('没有要删除的内容');
+			}else{
+				var first = oDiv.firstChild.innerHTML;
+				oDiv.removeChild(oDiv.firstChild);
+				alert(first);
+			}
+		}
+
+		//右侧出
+		getElem('.right_out').onclick=function(){
+			if (oDiv.innerHTML == '') {
+				alert('没有要删除的内容');
+			}else{
+				var last = oDiv.lastChild.innerHTML;
+				oDiv.removeChild(oDiv.lastChild);
+				alert(last);
+			}
+		}
+	</script>
+</body>
+</html>

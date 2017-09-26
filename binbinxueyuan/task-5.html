@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IFE JavaScript Task 05</title>
+	<style type="text/css">
+		.left_in,.right_in,.left_out,.right_out,.span_sort{
+			background-color: #fff;
+			color: #696969;
+			border:1px solid #C0C0C0;
+			border-radius: 5px;
+		}
+		.left_out{
+			margin-left: 30px;
+		}
+		.div1{
+			padding:0;
+			margin: 10px;
+			height: 100px;
+		}
+		span{
+			display: inline-block;
+			width: 30px;
+			background-color: red;
+			margin-right: 30px;
+			margin-bottom: 0;
+			
+		}
+
+		.span_sort{
+			margin-left: 30px;
+		}
+	</style>
+</head>
+<body>
+	<input class='text' type="text">
+	<input class='left_in' type="button" value="左侧入">
+	<input class='right_in' type="button" value="右侧入">
+	<input class='left_out' type="button" value="左侧出">
+	<input class='right_out' type="button" value="右侧出">
+	<input type="button" value="排序" class="span_sort">
+
+	<div class="div1"></div>
+
+	<script>
+
+
+		//获取元素方法
+		var getElem = function(selector) {
+			return document.querySelector(selector);
+		}
+
+
+		//获取队列
+		var oDiv = getElem('.div1');
+
+
+
+		//左侧入
+		getElem('.left_in').onclick=function(){
+
+			var textVal = getElem('.text').value;
+
+			if (textVal == '') {
+				alert('请输入内容');
+			}else{
+
+				if (isNaN(textVal)) {
+					alert('请输入数字');
+				}else{
+
+					if(textVal>=10 && textVal<=100 ){
+						if(oDiv.children.length <= 60){
+							var aSpan = document.createElement('span');
+							aSpan.style.height = textVal+'px';
+							aSpan.style.marginTop = (100-textVal)+'px';
+							if(oDiv.innerHTML == 0){
+								oDiv.appendChild(aSpan);
+							}else{
+								oDiv.insertBefore(aSpan,oDiv.firstChild);
+							}
+							
+						}else{
+							alert('队列元素数量最多为60个');
+						}
+					}else{
+						alert('请输入10~100的数字');
+					}
+
+				}
+
+			}
+
+		}
+		
+
+
+		//右侧入
+			getElem('.right_in').onclick=function(){
+
+			var textVal = getElem('.text').value;
+
+			if (textVal == '') {
+				alert('请输入内容');
+			}else{
+
+				if (isNaN(textVal)) {
+					alert('请输入数字');
+				}else{
+
+					if(textVal>=10 && textVal<=100 ){
+						if(oDiv.children.length <= 60){
+							var aSpan = document.createElement('span');
+							aSpan.style.height = textVal+'px';
+							aSpan.style.marginTop = (100-textVal)+'px';
+								oDiv.appendChild(aSpan);	
+							
+						}else{
+							alert('队列元素数量最多为60个');
+						}
+					}else{
+						alert('请输入10~100的数字');
+					}
+
+				}
+
+			}
+
+		}
+
+
+
+		//左侧出
+		deleteSp('.left_out');
+
+		//右侧出
+		deleteSp('.right_out');
+
+		//删除函数
+		function deleteSp(selector){
+			getElem(selector).onclick=function(){
+			if (oDiv.innerHTML == '') {
+				alert('没有要删除的内容');
+			}else{
+				if(selector=='.left_out'){
+					oDiv.removeChild(oDiv.firstChild);	
+				}else{
+					oDiv.removeChild(oDiv.lastChild);
+				}
+				
+			}
+		}
+
+		}
+
+		//排序
+		var aSort = getElem('.span_sort');
+		aSort.onclick = function(){
+			var oSpan = document.getElementsByTagName('span');
+			var arr = [];
+			for(var i=0;i<oSpan.length;i++){
+				var sh = parseInt(oSpan[i].style.height);
+				arr.push([i,sh]);
+			}
+			
+			arr.sort(function(a,b){
+				return a[1]-b[1];
+			});
+
+			for(var i=0;i<arr.length;i++){
+				oSpan[i].style.height=arr[i][1]+'px';
+				oSpan[i].style.marginTop=(100-arr[i][1])+'px';
+				
+
+			}
+		}
+
+	</script>
+</body>
+</html>
