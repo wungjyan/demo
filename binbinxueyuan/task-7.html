@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task-7</title>
+	<style type="text/css">
+		#root{
+			width: 1020px;
+			height: 300px;
+			padding:30px;
+			margin:20px auto 20px;
+			border:1px solid #000;
+			display: flex;
+			justify-content: space-between;
+		}
+		#btn{
+			width: 250px;
+			margin:0 auto;
+		}
+		div[class^='child']{
+			padding:20px;
+			border: 1px solid #000;
+			display: flex;
+			justify-content:space-between; 
+		}
+		div[class$='1']{
+			width: 450px;
+			height: 260px;
+		}
+		div[class$='2']{
+			width: 170px;
+			height: 220px;
+		}
+		div[class$='3']{
+			width: 35px;
+			height: 180px;	
+		}
+	</style>
+</head>
+<body>
+	<div id="root">
+
+		<div class="child1">
+			<div class="child2">
+				<div class="child3"></div>
+				<div class="child3"></div>
+			</div>
+			<div class="child2">
+				<div class="child3"></div>
+				<div class="child3"></div>
+			</div>
+		</div>
+
+		<div class="child1">
+			<div class="child2">
+				<div class="child3"></div>
+				<div class="child3"></div>
+			</div>
+			<div class="child2">
+				<div class="child3"></div>
+				<div class="child3"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="btn">
+		<button class="preOrder">前序遍历</button>
+		<button class="inOrder">中序遍历</button>
+		<button class="postOrder">后序遍历</button>
+	</div>
+
+
+	<script>
+		//获取元素
+		function getElem(selector) {
+			return document.querySelector(selector);
+		}
+
+		var preOrder = getElem('.preOrder');
+		var inOrder = getElem('.inOrder');
+		var postOrder = getElem('.postOrder');
+		var root = getElem('#root');
+		var order = [];
+		var timer = null;
+
+		//前序遍历
+		function preOrderTraverse(node) {
+			if (node !== null) {
+				order.push(node);
+				preOrderTraverse(node.firstElementChild);
+				preOrderTraverse(node.lastElementChild);
+			}
+		}
+
+
+
+		//中序遍历
+		function inOrderTraverse(node) {
+			if (node !== null) {
+				inOrderTraverse(node.firstElementChild);
+				order.push(node);
+				inOrderTraverse(node.lastElementChild);
+			}
+		}
+
+		//后序遍历
+		function postOrderTraverse(node) {
+			if (node !== null) {
+				postOrderTraverse(node.firstElementChild);
+				postOrderTraverse(node.lastElementChild);
+				order.push(node);
+			}
+		}
+
+
+		//改变颜色函数
+		function changeColor() {
+			var i = 0;
+			order[i].style.backgroundColor = 'green';
+			timer = setInterval(function(){
+				i++;
+				if (i<order.length) {
+					order[i-1].style.backgroundColor = '#fff';
+					order[i].style.backgroundColor = 'green';
+				}else{
+					clearInterval(timer);
+					order[order.length-1].style.backgroundColor = '#fff';
+				}
+			},500);
+		}
+
+
+		//初始化函数
+		function initialize() {
+			order = [];
+			clearInterval(timer);
+			var oDiv = document.getElementsByTagName('div');
+			for(var i=0;i<oDiv.length;i++) {
+				oDiv[i].style.backgroundColor = '#fff';
+			}
+		}
+
+		//添加事件函数
+		function addHandler(element,type,handler) {
+			if (element.addEventListener) {
+				element.addEventListener(type,handler,false);
+			} else if (element.attachEvent) {
+				element.attachEvent("on"+type,handler);
+			} else {
+				element["on"+type] = handler;
+			}
+		}
+
+
+		//执行前序遍历
+		addHandler(preOrder,'click',function() {
+			initialize();
+			preOrderTraverse(root);
+			changeColor();
+
+		});
+
+
+		//执行中序遍历
+		addHandler(inOrder,'click',function() {
+			initialize();
+			inOrderTraverse(root);
+			changeColor();
+		});
+
+
+		//执行后序遍历
+		addHandler(postOrder,'click',function() {
+			initialize();
+			postOrderTraverse(root);
+			changeColor();
+		})
+
+	</script>
+</body>
+</html>
