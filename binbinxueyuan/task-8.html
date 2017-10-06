@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IFE JavaScript Task 08</title>
+</head>
+<style type="text/css">
+	#root{
+		width: 1000px;
+		height: 300px;
+		border:1px solid #000;
+		margin:20px auto;
+		padding:5px;
+		display: flex;
+		
+	}
+
+	div[class^='child']{
+		width: 100%;
+		padding:5px;
+		margin:8px;
+		border:1px solid #000;
+		display: flex;
+	}
+	
+	.search{
+		width: 250px;
+		margin: 30px auto;
+	}
+	
+
+</style>
+<body>
+	<div id="root">1
+		<div class="child1">4
+			<div class="child2">3
+				<div class="child3">5</div>
+				<div class="child3">9</div>
+			</div>
+			<div class="child2">7
+				<div class="child3">6</div>
+				<div class="child3">13</div>
+			</div>
+		</div>
+
+		<div class="child1">12
+			<div class="child2">16</div>
+			<div class="child2">8
+				<div class="child3">2</div>
+				<div class="child3">15</div>
+			</div>
+		</div>
+		
+		<div class="child1">14
+			<div class="child2">10</div>
+			<div class="child2">8
+				<div class="child3">11</div>
+			</div>
+		</div>
+			
+	</div>
+
+
+	<div class="search">
+		<input type="text" class="text">
+		<input type="button" value="前序查询" class="preOrder">
+	</div>
+
+
+	<script>
+
+		//获取元素
+		function getElem(selector) {
+			return document.querySelector(selector);
+		}
+
+		var oT= getElem('.text');
+		var preOrder = getElem('.preOrder');
+		var root = getElem('#root');
+		var order = [];
+		var timer = null;
+
+		//前序遍历
+		function preOrderTraverse(node) {
+			if (node) {
+				order.push(node);
+				for(var i=0;i<node.children.length;i++) {
+					preOrderTraverse(node.children[i]);
+				}
+				
+			}
+		}
+
+		//改变颜色函数
+		function changeColor() {
+			var i = 0;
+			//如果第一次就找到，则不再查询
+			if (order[i].firstChild.nodeValue.replace(/(^\s*)|(\s*$)/g, "") == oT.value) {
+				order[i].style.backgroundColor = 'red';
+			}else{
+				order[i].style.backgroundColor = 'green';
+				timer = setInterval(function(){
+					i++;
+					if (i<order.length) {
+						order[i-1].style.backgroundColor = '#fff';
+						if (order[i].firstChild.nodeValue.replace(/(^\s*)|(\s*$)/g, "") == oT.value) {
+							order[i].style.backgroundColor = 'red';
+							clearInterval(timer);
+						}else{
+							order[i].style.backgroundColor = 'green' 
+						}
+					}else{
+						clearInterval(timer);
+						order[order.length-1].style.backgroundColor = '#fff';
+						alert('未找到该字符');
+					}
+				},500);
+			}
+			
+		}
+
+
+		//初始化函数
+		function initialize() {
+			order = [];
+			clearInterval(timer);
+			var oDiv = document.getElementsByTagName('div');
+			for(var i=0;i<oDiv.length;i++) {
+				oDiv[i].style.backgroundColor = '#fff';
+			}
+		}
+
+		//添加事件函数
+		function addHandler(element,type,handler) {
+			if (element.addEventListener) {
+				element.addEventListener(type,handler,false);
+			} else if (element.attachEvent) {
+				element.attachEvent("on"+type,handler);
+			} else {
+				element["on"+type] = handler;
+			}
+		}
+
+
+		addHandler(preOrder,'click',function(){
+			initialize();
+			preOrderTraverse(root);
+			changeColor();
+		});
+
+		
+
+	</script>
+</body>
+</html>
