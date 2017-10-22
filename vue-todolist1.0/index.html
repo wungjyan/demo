@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>任务计划表</title>
+	<link rel="stylesheet" type="text/css" href="./index.css">
+</head>
+<body>
+	
+		<div class="header">
+			<h2>任务计划表</h2>
+		</div>
+
+		<div class="main">
+			<h3>添加任务</h3>
+			<!-- 任务输入框 -->
+			<input type="text" placeholder="输入任务，回车添加" class="task-input" @keyup.enter='inputTodo' v-model='todo'>
+			<!-- 任务信息栏 -->
+			<ul class="task-status" v-show='list.length'>
+				<li style="color: #FF8300;">{{unFinished}}个未完成任务</li>
+				<li>
+					<a href="#all" @click='warning'>所有任务</a>
+					<a href="#unfinished" @click='warning'>未完成的任务</a>
+					<a href="#finished" @click='warning'>完成的任务</a>
+				</li>
+			</ul>
+			<!-- 任务展示框 -->
+			<div class="task-show">
+				<h3>任务列表</h3>
+				<!-- 没有任务时显示 -->
+				<span v-show='!list.length'>还没有添加任务</span>
+				<!-- 有任务时提示 -->
+				<span style="color: #d9d9d9;font-size: 14px;" v-show='list.length'>可双击任务编辑</span>
+				<!-- 任务列表 -->
+				<ul class="task-list">
+					<li v-for='item in list' :class="{completed: item.isChecked,editing:item === ieditTodo}">
+						<!-- 任务显示栏 -->
+						<div class="view">
+							<input type="checkbox" v-model='item.isChecked'>
+							<label @dblclick='editTodo(item)'>{{item.title}}</label>
+							<input type="button" value="删除" class="destroy" @click='delTodo(item)'>
+						</div>
+						<!-- 编辑任务框 -->
+						<input v-focus='item === ieditTodo' type="text" class="edit" @blur='editTodoed' @keyup.enter='editTodoed' v-model='item.title'>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	
+	<script src="./vue.js"></script>
+	<script src="./app.js"></script>
+</body>
+</html>

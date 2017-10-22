@@ -1,0 +1,100 @@
+body,h2{
+	padding:0;
+	margin: 0;
+}
+h3{
+	margin:10px 0;
+}
+a{
+	text-decoration-line: none;
+	color:#A9A9A9;
+}
+ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.header{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	color: #fff;
+	background-color: #FF2800;
+}
+
+.main{
+	width: 600px;
+	height: 100%;
+	margin:0 auto;
+}
+.task-input{
+	width: 598px;
+	height: 30px;
+}
+.task-status{
+	width: 600px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 10px;
+}
+
+.task-status li{
+	float: left;
+	height: 40px;
+	line-height: 40px;
+}
+.task-status li:nth-of-type(2){
+	margin-left: 200px;
+}
+.task-status li a{
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	padding:0 5px;
+	border:1px solid #DCDCDC;
+	border-radius: 5px;
+}
+
+.task-list li .view{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 10px;
+	border:1px solid #F5F5F5;
+	position: relative;
+}
+
+.task-list li .view .destroy{
+	position: absolute;
+	right: 0;
+	top: 8px;
+	display: none;
+}
+
+.task-list li .view:hover .destroy{
+	display: block;
+}
+
+.task-list li .edit{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 10px;
+	border:1px solid #DCDCDC;
+	display: none;
+}
+
+.task-list li.completed .view label{
+	color:#a9a9a9;
+	text-decoration-line: line-through;
+}
+
+.task-list li.editing .view{
+	display: none;
+}
+.task-list li.editing .edit{
+	display: block;
+}
+
+
