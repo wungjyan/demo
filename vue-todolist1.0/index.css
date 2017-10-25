@@ -45,7 +45,7 @@ ul{
 	line-height: 40px;
 }
 .task-status li:nth-of-type(2){
-	margin-left: 200px;
+	margin-left: 190px;
 }
 .task-status li a{
 	display: inline-block;
@@ -97,4 +97,6 @@ ul{
 	display: block;
 }
 
-
+.active{
+	color:#009999;
+}

@@ -4,6 +4,11 @@
 	<meta charset="UTF-8">
 	<title>任务计划表</title>
 	<link rel="stylesheet" type="text/css" href="./index.css">
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+	</style>
 </head>
 <body>
 	
@@ -11,7 +16,7 @@
 			<h2>任务计划表</h2>
 		</div>
 
-		<div class="main">
+		<div class="main" v-cloak>
 			<h3>添加任务</h3>
 			<!-- 任务输入框 -->
 			<input type="text" placeholder="输入任务，回车添加" class="task-input" @keyup.enter='inputTodo' v-model='todo'>
@@ -19,9 +24,9 @@
 			<ul class="task-status" v-show='list.length'>
 				<li style="color: #FF8300;">{{unFinished}}个未完成任务</li>
 				<li>
-					<a href="#all" @click='warning'>所有任务</a>
-					<a href="#unfinished" @click='warning'>未完成的任务</a>
-					<a href="#finished" @click='warning'>完成的任务</a>
+					<a :class="{active:visibility === 'all'}" href="#all">所有任务</a>
+					<a :class="{active:visibility === 'unfinished'}" href="#unfinished">未完成的任务</a>
+					<a :class="{active:visibility === 'finished'}" href="#finished">完成的任务</a>
 				</li>
 			</ul>
 			<!-- 任务展示框 -->
@@ -33,11 +38,11 @@
 				<span style="color: #d9d9d9;font-size: 14px;" v-show='list.length'>可双击任务编辑</span>
 				<!-- 任务列表 -->
 				<ul class="task-list">
-					<li v-for='item in list' :class="{completed: item.isChecked,editing:item === ieditTodo}">
+					<li v-for='item in filteredHash' :class="{completed: item.isChecked,editing:item === ieditTodo}">
 						<!-- 任务显示栏 -->
 						<div class="view">
 							<input type="checkbox" v-model='item.isChecked'>
-							<label @dblclick='editTodo(item)'>{{item.title}}</label>
+							<label @dblclick='edit(item)'>{{item.title}}</label>
 							<input type="button" value="删除" class="destroy" @click='delTodo(item)'>
 						</div>
 						<!-- 编辑任务框 -->
