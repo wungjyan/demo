@@ -42,7 +42,7 @@
 						<!-- 任务显示栏 -->
 						<div class="view">
 							<input type="checkbox" v-model='item.isChecked'>
-							<label @dblclick='edit(item)'>{{item.title}}</label>
+							<label @dblclick='editTodo(item)'>{{item.title}}</label>
 							<input type="button" value="删除" class="destroy" @click='delTodo(item)'>
 						</div>
 						<!-- 编辑任务框 -->
