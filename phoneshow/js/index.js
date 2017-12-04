@@ -119,7 +119,6 @@ window.onload = function (){
 
 
 //第二部：滚动加载动画
-
 var navItems = getAllElem ('.header_nav-item');
 var outlineItems = getAllElem ('.outline_item');
 
@@ -185,6 +184,7 @@ window.onscroll=function(){
 
 //双向定位
 
+
 var setNavJump = function (i,lib){
 	var item = lib[i];
 	item.onclick=function(){
@@ -202,7 +202,7 @@ for(var i=0;i<outlineItems.length;i++){
 
 
 //滑动门特效
-
+var slideElems = getAllElem('.slide');
 var setTip = function(idx,lib){
 	lib[idx].onmouseover=function(){
 		navTip.style.left=(idx * 70)+'px';
@@ -220,8 +220,8 @@ var setTip = function(idx,lib){
 	}
 } 
 
-for(var i=0;i<navItems.length;i++){
-	setTip(i,navItems);
+for(var i=0;i<slideElems.length;i++){
+	setTip(i,slideElems);
 }
 
 
