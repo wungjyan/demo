@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>时钟</title>
+	<style>
+		.wrap{
+			width: 200px;
+			height: 200px;
+			border: 2px solid #000;
+			border-radius: 50%;
+			margin:60px auto;
+			position: relative;
+		}
+		.wrap ul{
+			margin: 0;
+			padding: 0;
+			list-style: none; 
+		}
+		.wrap ul li{
+			width: 2px;
+			height: 5px;
+			background-color: #000;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -1px;
+			-webkit-transform-origin:center 100px;
+		}
+		.wrap ul li:nth-of-type(5n+1){
+			height: 10px;
+		}
+		.wrap .hour{
+			width: 6px;
+			height: 45px;
+			position: absolute;
+			top: 55px;
+			left: 97px;
+			background-color: #000;
+			-webkit-transform-origin:bottom;
+		}
+		.wrap .min{
+			width: 4px;
+			height: 65px;
+			position: absolute;
+			top: 35px;
+			left: 98px;
+			background-color: #ccc;
+			-webkit-transform-origin:bottom;
+		}
+		.wrap .sec{
+			width: 2px;
+			height: 80px;
+			position: absolute;
+			top: 20px;
+			left: 99px;
+			background-color: red;
+			-webkit-transform-origin:bottom;
+		}
+		.wrap .icon{
+			width: 16px;
+			height: 16px;
+			background-color: #000;
+			border-radius: 50%;
+			position: absolute;
+			top: 92px;
+			left: 92px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul>
+			<!-- <li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li> -->
+		</ul>
+		<div class="hour"></div>
+		<div class="min"></div>
+		<div class="sec"></div>
+		<div class="icon"></div>
+	</div>
+	<script>
+		var aUl = document.querySelector('ul');
+		var aHour = document.querySelector('.hour');
+		var aMin = document.querySelector('.min');
+		var aSec = document.querySelector('.sec');
+		var oLi = '';
+		for(var i=0;i<60;i++){
+			oLi+="<li style='-webkit-transform:rotate("+i*6+"deg)'></li>";
+		}
+		aUl.innerHTML = oLi;
+
+
+		
+
+		function toTime(){
+
+			var date = new Date();
+			var iSec = date.getSeconds();
+			var iMin = date.getMinutes()+iSec/60;
+			var iHour = date.getHours()+iMin/60;
+		
+			aSec.style.WebkitTransform = 'rotate('+iSec*6+'deg)';
+			aMin.style.WebkitTransform = 'rotate('+iMin*6+'deg)';
+			aHour.style.WebkitTransform = 'rotate('+iHour*30+'deg)';
+		}
+		toTime();
+		setInterval(toTime,1000);
+		
+	</script>
+</body>
+</html>
