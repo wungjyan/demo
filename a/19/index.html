@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>扇形展开导航</title>
+	<style>
+		.wrap{
+			width: 400px;
+			height: 400px;
+			border:1px solid #ccc;
+			margin:50px auto;
+			position: relative;
+		}
+		.menu{
+			width: 50px;
+			height: 50px;
+			position: absolute;
+			right: 0;
+			bottom: 0;
+		}
+		.menu_list{
+			width: 42px;
+			height: 42px;
+			position: relative;
+			margin:4px;	
+		}
+		.menu_list img{
+			border-radius: 21px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		.home{
+			width: 50px;
+			height: 50px;
+			border-radius: 25px;
+			background: url('./imgs/home.png') no-repeat;
+			position: absolute;
+			left: 0;
+			top: 0;
+			transition: all 1s;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="menu">
+			<div class="menu_list">
+				<img src="./imgs/clos.png" alt="">
+				<img src="./imgs/full.png" alt="">
+				<img src="./imgs/open.png" alt="">
+				<img src="./imgs/prev.png" alt="">
+				<img src="./imgs/refresh.png" alt="">
+			</div>
+			<div class="home"></div>
+		</div>
+	</div>
+
+	<script>
+		//获取元素函数
+		var getElem = function(selector){
+			return document.querySelector(selector);
+		};
+		var getAllElem = function(selector){
+			return document.querySelectorAll(selector);
+		}
+
+		var aHome = getElem('.home');
+		var oImg = getAllElem('img');
+		var on_off = true;
+		var iR = -150;
+		aHome.onclick = function(){
+			if (on_off) {
+				this.style.WebkitTransform = 'rotate(-360deg)';
+				for(var i=0;i<oImg.length;i++){
+					var oLt = getXY(iR,90/4*i);
+					oImg[i].style.transition = '0.5s '+i*100+'ms';
+					oImg[i].style.left = oLt.l + 'px';
+					oImg[i].style.top = oLt.t + 'px';
+					oImg[i].style.WebkitTransform = 'scale(1) rotate(-720deg)';
+				}
+			}else{
+				this.style.WebkitTransform = 'rotate(0deg)';
+				for(var i=0;i<oImg.length;i++){
+					oImg[i].style.transition = '0.5s '+(oImg.length-i)*100+'ms';
+					oImg[i].style.left = 0 + 'px';
+					oImg[i].style.top = 0 + 'px';
+					oImg[i].style.WebkitTransform = 'scale(1) rotate(0deg)';
+				}
+			}
+			on_off = !on_off;
+		}
+
+		//每张图片点击效果
+		for(var i=0;i<oImg.length;i++){
+			oImg[i].onclick=function(){
+				this.style.transition = '0.3s';
+				this.style.WebkitTransform = 'scale(2) rotate(-720deg)';
+				this.style.opacity = 0.1;
+				addEnd(this,end)
+			}
+		}
+
+		function end(){
+			this.style.transition = '0.1s';
+			this.style.WebkitTransform = 'scale(1) rotate(-720deg)';
+			this.style.opacity = 1;
+			removeEnd(this,end)
+		}
+
+
+		//获取每个图片的展开位移（X,Y）
+		function getXY(iR,iDeg){
+			return {
+				l:Math.round(iR*Math.sin(iDeg/180*Math.PI)),
+				t:Math.round(iR*Math.cos(iDeg/180*Math.PI))
+			}
+		}
+
+
+		//过渡结束后
+		function addEnd(obj,fn){
+			obj.addEventListener('WebkitTransitionEnd',fn,false);
+			obj.addEventListener('transitionend',fn,false);
+		}
+
+		function removeEnd(obj,fn){
+			obj.removeEventListener('WebkitTransitionEnd',fn,false);
+			obj.removeEventListener('transitionend',fn,false);
+		}
+	</script>
+</body>
+</html>
