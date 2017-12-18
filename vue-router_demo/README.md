@@ -1,6 +1,6 @@
-# new_page
+# vue-router_demo
 
-> A Vue.js project
+> A vue-router page
 
 ## Build Setup
 
