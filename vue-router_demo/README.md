@@ -1,21 +1,3 @@
-# vue-router_demo
+这算是一个练习vue-router的demo，之前看完vue路由后一直没管，有些生疏了，就写这么个demo。       
 
-> A vue-router page
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+当然这个例子是极其简单的，并没有涵盖vue-router的所有知识点，说实话，我写布局都比写vue代码花的时间多。
