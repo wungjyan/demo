@@ -19,5 +19,8 @@ export default {
         return d;
       }
     });
+  },
+  getAll(states){
+    return states.event
   }
 }

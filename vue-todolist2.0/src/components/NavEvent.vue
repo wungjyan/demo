@@ -6,8 +6,18 @@
             <el-collapse-item title="未完成" name="1">
               <ul>
                 <li v-for="value in getToDo" >
-                  <el-checkbox :key='value.id' v-model="value.ischecked" class="checkbox-item" @change="moveToDone(value.id)">{{value.content}}</el-checkbox>
-                  <el-button size="mini" @click="moveCancel(value.id)" class="btn-item">删除</el-button>
+                  <el-row>
+                    <el-col :lg="22" :md="21" :sm="21" :xs="20">
+                      <el-checkbox :key='value.id' v-model="value.ischecked" class="checkbox-item" @change="moveToDone(value.id)">
+                        {{value.content}}
+                      </el-checkbox>
+                    </el-col>
+                    <el-col :lg="2" :md="3" :sm="3" :xs="4">
+                      <el-button size="mini" @click="moveCancel(value.id)" class="btn-item">取消</el-button>
+                    </el-col>
+                  </el-row>
+
+
                 </li>
               </ul>
             </el-collapse-item>
@@ -18,11 +28,19 @@
                 </li>
               </ul>
             </el-collapse-item>
-            <el-collapse-item title="已删除" name="3">
+            <el-collapse-item title="已取消" name="3">
               <ul>
                 <li v-for="value in getCancel">
-                  <el-checkbox  :key="value.id" v-model="value.ischecked" class="checkbox-item" >{{value.content}}</el-checkbox>
-                  <el-button size="mini" v-if="value.ischecked" class="btn-item" @click="moveToDo(value.id)">恢复</el-button>
+                  <el-row>
+                    <el-col :lg="22" :md="21" :sm="21" :xs="20">
+                      <el-checkbox  :key="value.id" v-model="value.ischecked" class="checkbox-item" >{{value.content}}</el-checkbox>
+                    </el-col>
+                    <el-col :lg="2" :md="3" :sm="3" :xs="4">
+                      <el-button size="mini" v-if="value.ischecked" class="btn-item" @click="moveToDo(value.id)">恢复</el-button>
+                    </el-col>
+                  </el-row>
+
+
                 </li>
               </ul>
             </el-collapse-item>
@@ -36,17 +54,24 @@
   li{
     margin-left: 10px;margin-bottom: 10px;
   }
-  .checkbox-item{
-    width:90%;
-  }
+
 </style>
 
 <script>
+  import ElCol from "element-ui/packages/col/src/col";
+  import ElRow from "element-ui/packages/row/src/row";
+
   export default {
+    components: {
+      ElRow,
+      ElCol},
     data(){
      return {
 
      }
+    },
+    mounted(){
+
     },
     computed:{
       getToDo(){

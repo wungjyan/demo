@@ -36,7 +36,7 @@ export default {
   EVENTCANCEL(states,obj){
     for(var i=0;i<states.event.length;i++){
       if(states.event[i].id == obj.id){
-        states.event[i].type = 3;  //成为删除事件
+        states.event[i].type = 3;  //成为取消事件
         states.event[i].ischecked = false;
         var item = states.event[i];
         states.event.splice(i,1);
@@ -44,6 +44,15 @@ export default {
       }
     }
     states.event.unshift(item);
+    func.local.set(states);
+  },
+  CANCELEVENT(states,obj){   //真正删除数据
+    for(var i=0;i<states.event.length;i++){
+      if(states.event[i].id == obj.id){
+        states.event.splice(i,1);
+        break;
+      }
+    }
     func.local.set(states);
   }
 }

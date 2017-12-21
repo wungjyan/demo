@@ -8,7 +8,10 @@ export default {
   eventtodo({commit},params){
     commit('EVENTTODO',{id:params});
   },
-  eventcancel({commit},params){
+  eventcancel({commit},params){   //这是取消未完成的，不是删除
     commit('EVENTCANCEL',{id:params});
+  },
+  cancelevent({commit},params){
+    commit('CANCELEVENT',{id:params});
   }
 }
