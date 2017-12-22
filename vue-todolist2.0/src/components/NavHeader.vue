@@ -8,8 +8,8 @@
             更多<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item><router-link to="/edit">编辑</router-link></el-dropdown-item>
-              <el-dropdown-item>清空</el-dropdown-item>
+              <el-dropdown-item><router-link to="/edit" class="edit">编辑</router-link></el-dropdown-item>
+              <el-dropdown-item ><a class="clearAll" href="javascript:;" @click="clearAllEvent">清空</a></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -40,4 +40,23 @@
     color: #fff;
     cursor: pointer;
   }
+
+  .edit{
+    text-decoration: none;
+    color: #2c3e50;
+  }
+  .clearAll{
+    text-decoration: none;
+    color: #2c3e50;
+  }
 </style>
+
+<script>
+  export default {
+    methods:{
+      clearAllEvent(){
+        this.$store.dispatch('clearallevent');
+      }
+    }
+  }
+</script>

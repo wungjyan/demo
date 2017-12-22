@@ -5,7 +5,7 @@ import App from './App'
 import router from './router/index'
 import store from './store/index'
 import 'element-ui/lib/theme-chalk/index.css'
-import { Row,Col,Container,Icon,Button,Input,Collapse,CollapseItem,Checkbox,Dropdown,DropdownMenu,DropdownItem,Table,TableColumn} from 'element-ui'
+import { Row,Col,Container,Icon,Button,Input,Collapse,CollapseItem,Checkbox,Dropdown,DropdownMenu,DropdownItem} from 'element-ui'
 
 Vue.use(Row)
 Vue.use(Col)
@@ -19,8 +19,6 @@ Vue.use(Checkbox)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
-Vue.use(Table)
-Vue.use(TableColumn)
 
 
 Vue.config.productionTip = false

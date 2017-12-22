@@ -50,9 +50,18 @@ export default {
     for(var i=0;i<states.event.length;i++){
       if(states.event[i].id == obj.id){
         states.event.splice(i,1);
+        if(states.event.length == 0){  //如果所有事件都删了，count重置
+          states.count = 0;
+        }
         break;
       }
     }
+
+    func.local.set(states);
+  },
+  CLEARALLEVENT(states){   //清空所有事件
+    states.event = [];
+    states.count = 0;
     func.local.set(states);
   }
 }

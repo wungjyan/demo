@@ -11,7 +11,10 @@ export default {
   eventcancel({commit},params){   //这是取消未完成的，不是删除
     commit('EVENTCANCEL',{id:params});
   },
-  cancelevent({commit},params){
+  cancelevent({commit},params){  //删除单条数据
     commit('CANCELEVENT',{id:params});
+  },
+  clearallevent({commit}){   //清空所有数据
+    commit('CLEARALLEVENT');
   }
 }

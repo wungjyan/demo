@@ -82,6 +82,9 @@
       },
       getCancel(){
         return this.$store.getters.getCancel
+      },
+      getAll(){
+        return this.$store.getters.getAll
       }
     },
     methods:{
