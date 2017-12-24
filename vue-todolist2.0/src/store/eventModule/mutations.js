@@ -63,5 +63,14 @@ export default {
     states.event = [];
     states.count = 0;
     func.local.set(states);
+  },
+  SAVEEDIT(states,obj){   //保存编辑
+    for(var i=0;i<states.event.length;i++){
+      if(states.event[i].id == obj.editdata.id){
+        states.event[i].content = obj.editdata.content;
+        break;
+      }
+    }
+    func.local.set(states);
   }
 }
