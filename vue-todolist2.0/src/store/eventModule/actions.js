@@ -16,5 +16,8 @@ export default {
   },
   clearallevent({commit}){   //清空所有数据
     commit('CLEARALLEVENT');
+  },
+  saveedit({commit},params){     //保存编辑
+    commit('SAVEEDIT',{editdata:params});
   }
 }
