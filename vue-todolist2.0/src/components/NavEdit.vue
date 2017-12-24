@@ -38,7 +38,7 @@
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-button size="medium" @click="isEdited=false">取消</el-button>
+            <el-button size="medium" @click="canceledit">取消</el-button>
             <el-button size="medium" type="primary" @click="saveEvent">保存</el-button>
           </el-col>
         </el-row>
@@ -143,7 +143,7 @@
     data() {
       return {
         isEdited:false, //控制是否显示模态框
-        events:''
+        events:''    //模态框里渲染的数据
       }
     },
 
@@ -174,6 +174,7 @@
         for(var i=0;i<this.eventData.length;i++){
           if(this.eventData[i].id == id){
             this.events = this.eventData[i]
+            this.events.initcontent = this.eventData[i].content; //将要编辑的初始内容存入
           }
         }
       },
@@ -185,6 +186,15 @@
           }
         }
         this.isEdited = false;
+      },
+      //取消
+      canceledit(){
+        this.isEdited = false;
+        for(var i=0;i<this.eventData.length;i++){
+          if (this.eventData[i].id == this.events.id){
+            this.eventData[i].content = this.events.initcontent  //取消时内容还是初始值
+          }
+        }
       }
     }
   }
