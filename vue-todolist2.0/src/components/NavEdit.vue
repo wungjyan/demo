@@ -39,7 +39,7 @@
         <el-row>
           <el-col :span="24">
             <el-button size="medium" @click="canceledit">取消</el-button>
-            <el-button size="medium" type="primary" @click="saveEvent">保存</el-button>
+            <el-button size="medium" type="primary" @click="saveEvent(events)">保存</el-button>
           </el-col>
         </el-row>
       </div>
@@ -143,7 +143,7 @@
     data() {
       return {
         isEdited:false, //控制是否显示模态框
-        events:''    //模态框里渲染的数据
+        events:''    //当前编辑的数据
       }
     },
 
@@ -179,12 +179,14 @@
         }
       },
       //保存
-      saveEvent(){
-        for(var i=0;i<this.eventData.length;i++){
-          if (this.eventData[i].id == this.events.id){
-            this.eventData[i].content = this.events.content
-          }
-        }
+      saveEvent(editdata){
+//        for(var i=0;i<this.eventData.length;i++){
+//          if (this.eventData[i].id == this.events.id){
+//            this.eventData[i].content = this.events.content
+//          }
+//        }
+        //上面方法未能保存到本地，采用下面这个改进
+        this.$store.dispatch('saveedit',editdata)
         this.isEdited = false;
       },
       //取消
