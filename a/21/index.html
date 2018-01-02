@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>关键词查找</title>
+	<style>
+		button{
+			padding:5px;
+			border:none;
+			background-color: #FF4500;
+			color: #fff;
+		}
+
+		.show{
+			margin-top: 30px;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<p>输入关键词（多个词以 | 隔开）</p>
+		<input type="text" class="keyword" placeholder="如： 中国|强大">
+
+		<p>输入文章</p>
+		<textarea rows="5" cols="50" class="article"></textarea>
+
+		<button>标注关键词</button>
+
+		<p class="show"></p>
+	</div>
+
+
+	<script>
+		var keyword = document.querySelector('.keyword');
+		var article = document.querySelector('.article');
+		var btn = document.querySelector('button');
+		btn.onclick = function(){
+			var v = keyword.value;
+			var kArr = v.split('|');
+			var len = kArr.length;
+			if (kArr[len-1] == '') {  //去除尾项的 ""
+				kArr.pop();
+			}
+			
+			var reg='';
+			for(var i=0;i<kArr.length;i++){
+				reg+='('+kArr[i]+')|';
+			} 
+
+			reg = eval('/'+reg.slice(0,-1)+'/g');
+			
+			var p = article.value;
+
+			var newP = p.replace(reg,function(match){
+				return `<span style='color:#fff;background-color:#FF4500'>${match}</span>`;
+			});
+
+			var showP = document.querySelector('.show');
+
+			showP.innerHTML = newP;
+	
+		}
+	</script>
+</body>
+</html>
