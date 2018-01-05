@@ -1,0 +1,116 @@
+ul{
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color: #fff;
+}
+
+.menu{
+	position: relative;
+}
+/*左侧总导航*/
+.left-nav{
+	width: 210px;
+	background-color: #6e6568;
+	color:#fff;
+	padding:15px 0 15px;
+}
+
+.left-nav ul li{
+	padding:5px 0 5px 10px;
+}
+
+.left-nav ul li:hover{
+	background-color: rgb(153,147,149);
+}
+
+.left-nav ul li span{
+	padding:0 5px 0;
+}
+
+.left-nav ul li a:hover{
+	color: rgb(234,21,43);
+}
+
+.right-nav{
+	width: 1000px;
+	padding: 15px;
+	position: absolute;
+	left: 210px;
+	top: 0;
+	border: 1px solid #D3D3D3;
+	box-shadow: 1px -1px 1px  #D3D3D3;
+}
+
+.right-nav .nav_part{
+	position: relative;
+}
+.right-nav .goods{
+	width: 800px;
+}
+
+.right-nav .top-nav a{
+	background-color: rgb(110,101,104);
+	font-size: 14px;
+	padding:2px 10px 2px;
+	margin-right: 5px;
+}
+
+.right-nav .top-nav a:hover{
+	background-color: rgb(92,82,81);
+}
+
+.right-nav .more-nav dl{
+	position: relative;
+	font-size: 13px;
+}
+
+.right-nav .more-nav dl dt{
+	position: absolute;
+	top: 0;
+	padding: 5px;
+	width: 60px;
+	text-align: right;
+}
+
+.right-nav .more-nav dl dt a{
+	color: rgb(110,101,104);
+	font-weight: bold;
+}
+
+.right-nav .more-nav dl dd{
+	padding: 5px;
+	margin-left: 78px;
+	border-bottom: 1px solid #F5F5F5;
+}
+.right-nav .more-nav dl dd a{
+	color: rgb(110,101,104);
+	padding: 1px 10px 1px;
+	border-left:1px solid #D3D3D3; 
+	word-break: keep-all;
+}
+
+.right-nav .more-nav dl a:hover{
+	color: rgb(234,21,43);
+}
+
+
+.right-nav .pic{
+	width: 180px;
+	height: 400px;
+	border: 1px solid #D3D3D3;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.right-nav,
+.right-nav .nav_part{
+	display: none;
+}
+
+
+
