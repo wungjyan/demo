@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽</title>
+    <style>
+        *{padding:0;margin:0}
+      .drag{
+          position: relative;
+          width: 250px;
+          height: 250px;
+          background: red;
+      }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="./common/react.js"></script>
+    <script src="./common/react-dom.js"></script>
+    <script src="./common/browser.js"></script>
+    <script type="text/babel">
+      class Drag extends React.Component{
+          constructor(){
+              super()
+              this.state={
+                  disx:0,
+                  disy:0,
+                  iLeft:0,
+                  iTop:0
+              }
+          }
+
+          handleDown(e){
+             this.setState({
+                 disx: e.clientX-e.target.offsetLeft,
+                 disy: e.clientY-e.target.offsetTop
+             })
+             document.onmousemove = function(e){
+                 this.setState({
+                     iLeft:e.clientX-this.state.disx,
+                     iTop:e.clientY-this.state.disy
+                 })
+             }.bind(this)
+
+             document.onmouseup = function(){
+                 document.onmousemove = null
+                 document.onmouseup = null
+             }
+          }
+
+          render(){
+              return <div className='drag' style={{left:this.state.iLeft,top:this.state.iTop}} onMouseDown={this.handleDown.bind(this)}></div>
+          }
+      }
+
+      ReactDOM.render(<Drag/>,app)
+
+    </script>
+</body>
+</html>
