@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选项卡</title>
+    <style>
+
+     .btn{
+         padding:5px 10px;
+         border:1px solid #000;
+         margin-left:10px;
+     }
+     .content{
+         width: 200px;
+         height: 200px;
+         border:1px solid #000;
+         margin-top:30px;
+     }
+     .active{
+         color: #fff;
+         background:red;
+     }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="./common/react.js"></script>
+    <script src="./common/react-dom.js"></script>
+    <script src="./common/browser.js"></script>
+    <script type="text/babel">
+      class TitleNode extends React.Component{
+
+          render(){
+              let titleContent = this.props.titleContent
+              let titleArray=[]
+              for(let i=0;i<titleContent.length;i++){
+                 titleArray.push(<span onClick={this.props.handleIndex} className={this.props.currentIndex==i?'active btn':'btn'} data-tIndex={i} key={i}>{titleContent[i]}</span>)
+              }
+              return (
+                <div>
+                   {titleArray}
+                </div>
+              )
+          }
+      }
+
+      class ContentNode extends React.Component{
+          render(){
+            let content = this.props.content
+            let contentArray=[]
+            for(let i=0;i<content.length;i++){
+              contentArray.push(<div style={{display:this.props.currentIndex==i?'block':'none'}} className='content' data-cIndex={i} key={i}>{content[i]}</div>)
+            }
+            return (
+                <div>{contentArray}</div>
+            )
+          }
+      }
+
+      class TabBar extends React.Component{
+          constructor(){
+              super()
+              this.state={
+                  currentIndex:''
+              }
+          }
+
+          getIndex(e){
+            this.setState({
+                currentIndex:e.target.getAttribute('data-tIndex')
+            })
+          }
+          render(){
+              return (
+                  <div>
+                    <TitleNode handleIndex={this.getIndex.bind(this)} currentIndex={this.state.currentIndex} titleContent={['音乐','图片','新闻']}/>
+                    <ContentNode currentIndex={this.state.currentIndex} content={['这里是音乐','这里是图片','这里是新闻']}/>
+                  </div>
+              )
+          }
+      }
+
+      ReactDOM.render(<TabBar/>,app)
+    </script>
+</body>
+</html>
