@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高级选项卡</title>
+    <style>
+      *{margin:0;padding:0}
+      ul li{list-style: none;}
+      .wrapper{width: 400px;overflow: hidden;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);border:1px solid #000;}
+      .topDiv{width: 100%;height: 300px;float: left;position: relative;}
+      .topDiv>div{position: absolute;top: 50%;transform: translateY(-50%);z-index: 3;padding:10px;background: rgba(	255,127,80,0.5);color:#fff;font-size: 18px;cursor: pointer;}
+      .topDiv ul{height: 100%;position: absolute;left: 0;top: 0;transition:0.7s;}
+      .topDiv ul li{width: 400px;height: 300px;float: left;overflow: hidden;}
+      .centerBox{width: 100%;height: 20px;background: darkcyan;float:left;color: #fff;line-height: 20px;}
+      .centerBox .rightBox{float:right;}
+      .centerBox .rightBox span{cursor: pointer;margin-right: 20px;font-size: 24px;}
+      .bottomBox{width: 100%;height: 100px;float:left;position: relative;}
+      .bottomBox ul{height: 100%;position: absolute;transition: 0.7s;}
+      .bottomBox ul li{width: 90px;height: 90px;border: 5px solid #000;float: left;background-size: cover;background-position: center center;transition: 0.7s;}
+      .bottomBox ul li.active{border-color: darkorange;}
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="../common/react.js"></script>
+    <script src="../common/react-dom.js"></script>
+    <script src="../common/browser.js"></script>
+    <script type="text/babel">
+
+     let data = {
+         pic:['1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg'],
+         text:['这是第一张图','这是第二张图','这是第三张图','这是第四张图','这是第五张图','这是最后一张图']
+     }
+      class TopNode extends React.Component{
+          render(){
+              let urlList = []
+              this.props.picUrl.forEach((url,index) => {
+                  urlList.push(<li key={index}><img src={'./img/'+url} style={{transform:'scale('+this.props.iScale+')',transition:'0.3s'}}/></li>)
+              });
+              return (
+                  <div className="topDiv">
+                    <div className="leftClick" onClick={this.props.toLeft} style={{left:'0px'}}>&lt;</div>
+                    <div className="rightClick" onClick={this.props.toRight} style={{right:'0px'}}>&gt;</div>
+                    <ul style={{width:this.props.picUrl.length*400+'px',left:this.props.index*-400+'px'}}>{urlList}</ul>
+                  </div>
+              )
+          }
+      }
+
+      class CenterNode extends React.Component{
+          render(){
+              return (
+                  <div className="centerBox">
+                    <span style={{marginLeft:'10px',fontSize:'16px'}}>{this.props.text[this.props.index]}</span>
+                    <div className="rightBox" onMouseDown={function(e){e.preventDefault()}}>
+                        <span onClick={this.props.allFn.big}>+</span>
+                        <span onClick={this.props.allFn.small}>-</span>
+                    </div>
+                  </div>
+              )
+          }
+      }
+
+      class BottomNode extends React.Component{
+          render(){
+            let urlList = []
+            this.props.bpicUrl.forEach((url,index) => {
+                //此处bind的作用是为了传参，这里绑定的this不会影响到父级，所以任意值即可
+                  urlList.push(<li onClick={this.props.goFn.bind(null,index)} className={this.props.index==index?'active':''} key={index} style={{backgroundImage:'url(./img/'+url+')'}}></li>)
+            });
+              return (
+                  <div className="bottomBox">
+                   <ul style={{width:this.props.bpicUrl.length*400+'px',left:this.props.index>3?(this.props.index-3)*-100+'px':'0px'}}>{urlList}</ul>
+                  </div>
+              )
+          }
+      }
+
+
+      class MyTab extends React.Component{
+          constructor(){
+              super()
+              this.state={
+                  index:1,
+                  iScale:1
+              }
+          }
+          change(i){
+            // 事件对象在参数后面，这里不写
+            this.setState({
+                index:i
+            })
+          }
+          goLeft(){
+            let needIndex = this.state.index-1
+            needIndex = (needIndex == -1) ? this.props.DataTo.pic.length-1:needIndex
+            this.setState({
+                iScale:1,
+                index:needIndex
+            })
+          }
+          goRight(){
+            let needIndex = this.state.index+1
+            needIndex = (needIndex == this.props.DataTo.pic.length) ? 0:needIndex
+            this.setState({
+                iScale:1,
+                index:needIndex
+            })
+          }
+          toBig(){
+           let needScale = this.state.iScale + 0.1
+           needScale = (needScale>2) ? 2 : needScale
+           this.setState({
+               iScale:needScale
+           })
+          }
+          toSmall(){
+           let needScale = this.state.iScale - 0.1
+           needScale = (needScale<0.4) ? 0.4 : needScale
+           this.setState({
+               iScale:needScale
+           })
+          }
+          render(){
+              return (
+                  <div className="wrapper">
+                    <TopNode picUrl={this.props.DataTo.pic} index={this.state.index} toLeft={this.goLeft.bind(this)} toRight={this.goRight.bind(this)} iScale={this.state.iScale}/>
+                    <CenterNode text={this.props.DataTo.text} index={this.state.index} allFn={{big:this.toBig.bind(this),small:this.toSmall.bind(this)}} />
+                    <BottomNode bpicUrl={this.props.DataTo.pic} index={this.state.index} goFn={this.change.bind(this)}/>
+                  </div>
+              )
+          }
+      }
+
+      ReactDOM.render(<MyTab DataTo={data}/>,app)
+    </script>
+</body>
+</html>
