@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>照片墙</title>
+    <style>
+     *{margin:0;padding:0;list-style: none;}
+     body{background: #696969;overflow: hidden;}
+     .myUl>li{width: 340px;height: 416px;background: #fff;position: absolute;transform-style: preserve-3d;}
+     .myUl>li>.zm{width: 100%;height: 100%;position: absolute;top: 0;left: 0;transform: translateZ(1px);}
+     .myUl>li>.bm{width: 100%;height: 100%;position: absolute;top: 0;left: 0;transform: translateZ(-1px) rotateY(180deg);text-align: center;color: brown;}
+     .myUl>li>.zm>img{width: 285px;height: 192px;position: absolute;left: 50%;top:93px;transform: translateX(-50%);}
+     .myUl>li>.zm>.text{width: 100%;text-align: center;position: absolute;bottom: 24px;color: coral;}
+     .myOl{position: absolute;left: 50%;transform: translateX(-50%);bottom: 38px;z-index: 100;}
+     .myOl>li{width: 14px;height: 14px;float: left;background: crimson;margin:0 8px;border-radius: 50%;cursor: pointer;transition:0.7s;}
+     .myOl>li.active{transform: scale(2) rotateY(180deg)}
+     .myOl>li.bActive{transform: scale(2) rotateY(360deg);background: chartreuse;}
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="../common/react.js"></script>
+    <script src="../common/react-dom.js"></script>
+    <script src="../common/browser.js"></script>
+    <script type="text/babel">
+      let picData = {
+          picUrl:['1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg'],
+          text:['第一张图','第二张图','第三张图','第四张图','第五张图','第六张图','第七张图','第八张图'],
+          bText:['详情一','详情二','详情三','详情四','详情五','详情六','详情七','详情八']
+      }
+      //屏幕宽高
+      let screenWidth = document.documentElement.clientWidth || document.body.clientWidth
+      let screenHeight = document.documentElement.clientHeight || document.body.clientHeight
+
+      class PicTab extends React.Component{
+          constructor(){
+              super()
+              this.state={
+                  rotate:[],
+                  rotateY:[],
+                  top:[],
+                  left:[],
+                  zIndex:[],
+                  index:0
+              }
+          }
+          componentDidMount(){
+            this.random()
+          }
+          random(needI){
+              let deg = [],newLeft = [],newTop = [],newZindex = [],newdegY = []
+              this.props.picData.picUrl.forEach((item,idx)=>{
+                  newdegY.push(0)
+                  if(idx==needI){
+                    deg.push(0)
+                    newLeft.push('calc(50% - 170px)')
+                    newTop.push('10%')
+                    newZindex.push('30')
+                  }else{
+                    deg.push(Math.random()*-720+360)
+                    newLeft.push(Math.random()*screenWidth-170)
+                    newTop.push(Math.random()*screenHeight-208)
+                    newZindex.push(idx)
+                  }
+                  
+              })
+              this.setState({
+                  rotate:deg,
+                  top:newTop,
+                  left:newLeft,
+                  zIndex:newZindex,
+                  rotateY:newdegY
+              })
+          }
+          switchPic(i,e){
+              // 点击按钮后会添加active类，按钮变大，再次点击时添加bActive类，按钮变色且li旋转
+              // 当存在active时，再判断bActive是否存在，存在说明本次点击是要往回翻转（反面到正面），不存在说明本次点击是要进行翻转（正面到反面）
+              let eClass = e.target.getAttribute('class')
+              if(eClass.indexOf('active')!=-1){
+                  if(eClass.indexOf('bActive')!=-1){
+                    e.target.setAttribute('class','active')
+                    this.state.rotateY.splice(i,1,0)
+                  }else{
+                      e.target.setAttribute('class','active bActive')
+                      this.state.rotateY.splice(i,1,180)
+                  }
+                  this.setState({
+                  rotateY:this.state.rotateY
+                  })
+              }else{
+                this.random(i)
+                this.setState({
+                  index:i
+                })
+              }
+              
+          }
+          render(){
+              let aLi = [], bLi = []
+              this.props.picData.picUrl.forEach((item,idx)=>{
+                  aLi.push(<li key={idx} style={{transform:'perspective(800px) rotate('+this.state.rotate[idx]+'deg) rotateY('+this.state.rotateY[idx]+'deg)',left:this.state.left[idx],top:this.state.top[idx],transition:Math.random()*0.4+0.3+'s',zIndex:this.state.zIndex[idx]}}>
+                    <div className="zm"><img src={'../common/img/'+item}/><div className="text">{this.props.picData.text[idx]}</div></div>
+                    <div className="bm">{this.props.picData.bText[idx]}</div>
+                    </li>)
+                  bLi.push(<li key={idx} className={this.state.index==idx?'active':''} onClick={this.switchPic.bind(this,idx)}></li>)
+                })
+              return <div>
+                       <ul className="myUl">{aLi}</ul>
+                       <ol className="myOl">{bLi}</ol>
+                    </div> 
+          }
+      }
+
+
+      class App extends React.Component{
+          render(){
+              return <div>
+                  <PicTab picData={this.props.picData}/>
+                </div>
+          }
+      }
+
+      ReactDOM.render(<App picData={picData}/>,app)
+    </script>
+</body>
+</html>
