@@ -17,12 +17,12 @@
         constructor(){
             super()
             this.state={
-                time:new Date().toTimeString()
+                time:new Date().toLocaleDateString() +' '+new Date().toLocaleTimeString()
             }
 
             setInterval(()=>{
                 this.setState({
-                    time:new Date().toTimeString()
+                    time: new Date().toLocaleDateString() +' '+ new Date().toLocaleTimeString()
                 })
             },1000)
         }
