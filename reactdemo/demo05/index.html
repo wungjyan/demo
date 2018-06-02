@@ -37,7 +37,7 @@
           render(){
               let urlList = []
               this.props.picUrl.forEach((url,index) => {
-                  urlList.push(<li key={index}><img src={'./img/'+url} style={{transform:'scale('+this.props.iScale+')',transition:'0.3s'}}/></li>)
+                  urlList.push(<li key={index}><img src={'../common/img/'+url} style={{transform:'scale('+this.props.iScale+')',transition:'0.3s'}}/></li>)
               });
               return (
                   <div className="topDiv">
@@ -68,7 +68,7 @@
             let urlList = []
             this.props.bpicUrl.forEach((url,index) => {
                 //此处bind的作用是为了传参，这里绑定的this不会影响到父级，所以任意值即可
-                  urlList.push(<li onClick={this.props.goFn.bind(null,index)} className={this.props.index==index?'active':''} key={index} style={{backgroundImage:'url(./img/'+url+')'}}></li>)
+                  urlList.push(<li onClick={this.props.goFn.bind(null,index)} className={this.props.index==index?'active':''} key={index} style={{backgroundImage:'url(../common/img/'+url+')'}}></li>)
             });
               return (
                   <div className="bottomBox">
