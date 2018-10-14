@@ -61,3 +61,85 @@ body{
 		.loading-2 .child2{
 			animation-delay: -1s;
 		}
+
+		/*loading-3*/
+		.loading-3{
+			height: 64px;
+		}
+		.loading-3 >div{
+			width: 7px;
+			height: 100%;
+			display: inline-block;
+			background: #4EC08D;
+			animation: loading-3 1.2s ease-in-out infinite;
+		}
+		@keyframes loading-3{
+			0%{
+				transform: scaleY(0.4);
+			}
+			20%{
+				transform: scaleY(1);
+			}
+			40%{
+				transform: scaleY(0.4);
+			}
+			100%{
+				transform: scaleY(0.4);
+			}
+		}
+		.loading-3 .line1{
+			animation-delay: -1.1s
+		}
+		.loading-3 .line2{
+			animation-delay: -1.0s
+		}
+		.loading-3 .line3{
+			animation-delay: -0.9s
+		}
+		.loading-3 .line4{
+			animation-delay: -0.8s
+		}
+		.loading-3 .line5{
+			animation-delay: -0.7s
+		}
+
+		/*loading-4*/
+		.loading-4{
+			position: relative;
+			width: 64px;
+			height: 64px;
+		}
+		@keyframes loading-4{
+			0%{
+				transform: rotate(0deg);
+			}
+			25%{
+				transform: translateX(32px) rotate(-90deg) scale(0.5);
+			}
+			50%{
+				transform: translateX(32px) translateY(32px) rotate(-179deg);
+			} 
+			50.1%{
+				transform: translateX(32px) translateY(32px) rotate(-180deg);
+			}
+			75%{
+				transform: translateY(32px) rotate(-270deg) scale(0.5);
+			}           
+			100%{
+				transform: rotate(-360deg);
+			}
+		}
+		.loading-4>div{
+			width: 20px;
+			height: 20px;
+			background: #4EC08D;
+			position: absolute;
+			top: 0;
+			left: 0;
+			animation: loading-4 2s ease-in-out infinite;
+		}
+		.loading-4 .cube2{
+			animation-delay: -1s;
+		}
+
+
