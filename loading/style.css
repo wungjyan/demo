@@ -6,8 +6,13 @@ body{
 		.wrapper{
 			width: 80%;
 			display: flex;
-			justify-content: space-around;;
+			flex-direction: column;
 			margin: 20px auto;
+		}
+		.wrapper .row{
+			display: flex;
+			justify-content: space-around;
+			padding: 50px 0;
 		}
 		/*loading-1*/
 		@keyframes loading-1{
@@ -140,6 +145,94 @@ body{
 		}
 		.loading-4 .cube2{
 			animation-delay: -1s;
+		}
+
+		/*loading-5*/
+		.loading-5{
+			width: 64px;
+			height: 64px;
+			border-radius: 50%;
+			background: #4EC08D;
+			animation:loading-5 1.5s ease-in-out infinite;
+		}
+		@keyframes loading-5{
+			0%{
+				transform: scale(0);
+			}
+			100%{
+				transform: scale(1);
+				opacity: 0;
+			}
+		}
+
+		/*loading-6*/
+		.loading-6{
+			width: 64px;
+			height: 64px;
+			border-radius: 50%;
+			animation:P-loading 2s linear infinite;
+		}
+		@keyframes P-loading{
+			100%{
+				transform: rotate(360deg);
+			}
+		}
+		.loading-6 .round{
+			width: 32px;
+			height: 32px;
+			margin: auto;
+			background: #4EC08D;
+			border-radius: 50%;
+			animation:C-loading 2s ease-in-out infinite;
+		}
+		@keyframes C-loading{
+			0%{
+				transform: scale(0);
+			}
+			50%{
+				transform: scale(1);
+			}
+			100%{
+				transform: scale(0);
+			}
+		}
+		.loading-6 .round:first-child{
+			animation-delay: -1s;
+		}
+
+		/*loading-7*/
+		.loading-7{
+			display: flex;
+			justify-content: center;
+			width: 128px;
+			height: 32px;
+		}
+		.loading-7 > div{
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+			background: #4EC08D;
+			animation:dot 1.4s ease-in-out infinite;
+		}
+		.loading-7 .dot1{
+			animation-delay: -0.32s;
+		}
+		.loading-7 .dot1{
+			animation-delay: -0.16s;
+		}
+		@keyframes dot{
+			0%{
+				transform: scale(0);
+			}
+			40%{
+				transform: scale(1);
+			}
+			80%{
+				transform: scale(0);
+			}
+			100%{
+				transform: scale(0);
+			}
 		}
 
 
