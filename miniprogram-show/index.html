@@ -9,13 +9,26 @@
         ul{
             display: flex;
         }
-        ul li{
+        li{
+            width: 250px;
+            height: 500px;
             list-style: none;
             margin: 0 10px;
         }
-        ul li img{
-            width: 250px;
-            height: 500px;
+        li img{
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        img:after{
+            content:"图片加载中";
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #e5e5e5;
         }
     </style>
 </head>
